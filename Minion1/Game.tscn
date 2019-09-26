@@ -10,7 +10,7 @@
 
 [sub_resource type="World" id=1]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 script/source = "extends StaticBody2D
 
 onready var wait_timer
@@ -20,8 +20,7 @@ func _ready():
 	pass 
 "
 
-[sub_resource type="Animation" id=2]
-resource_name = "Nueva animación"
+[sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -54,7 +53,6 @@ scroll_ignore_camera_zoom = true
 
 [node name="Camera2D2" type="Camera2D" parent="."]
 position = Vector2( -1.57458, 269.011 )
-scale = Vector2( 1, 1 )
 current = true
 zoom = Vector2( 2, 2 )
 script = ExtResource( 3 )
@@ -248,7 +246,7 @@ one_way_collision = true
 [node name="SmallMovingPlatform" type="StaticBody2D" parent="Platforms"]
 editor/display_folded = true
 position = Vector2( 58.8189, -582.509 )
-script = SubResource( 3 )
+script = SubResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -283,4 +281,4 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/ColorRect"]
-"anims/Nueva animación" = SubResource( 2 )
+"anims/Nueva animación" = SubResource( 3 )
