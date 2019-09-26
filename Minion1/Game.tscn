@@ -1,0 +1,286 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://ParallaxBackground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Pause.gd" type="Script" id=5]
+[ext_resource path="res://sprites/PNG/Environment/ground_grass.png" type="Texture" id=6]
+[ext_resource path="res://sprites/PNG/Environment/ground_grass_small.png" type="Texture" id=7]
+
+[sub_resource type="World" id=1]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends StaticBody2D
+
+onready var wait_timer
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass 
+"
+
+[sub_resource type="Animation" id=2]
+resource_name = "Nueva animación"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="Game" type="Node2D"]
+pause_mode = 1
+position = Vector2( 1024, 0 )
+script = ExtResource( 1 )
+
+[node name="Viewport" type="Viewport" parent="."]
+arvr = true
+size = Vector2( 2048, 2048 )
+own_world = true
+world = SubResource( 1 )
+
+[node name="ParallaxBackground2" parent="." instance=ExtResource( 2 )]
+offset = Vector2( 1024, 0 )
+transform = Transform2D( 1, 0, 0, 1, 1024, 0 )
+scroll_ignore_camera_zoom = true
+
+[node name="Camera2D2" type="Camera2D" parent="."]
+position = Vector2( -1.57458, 269.011 )
+scale = Vector2( 1, 1 )
+current = true
+zoom = Vector2( 2, 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( -494.814, 592.475 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
+layer = 9
+
+[node name="Pause" type="Control" parent="CanvasLayer"]
+pause_mode = 2
+editor/display_folded = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="BlackOverlay" type="ColorRect" parent="CanvasLayer/Pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.356863, 0.192157, 0.192157, 0.631373 )
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Pause"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Pause/CenterContainer"]
+margin_top = 13.0
+margin_right = 46.0
+margin_bottom = 27.0
+text = "Paused"
+
+[node name="Platforms" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( -615.274, -1167.85 )
+
+[node name="BigPlatform" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 477.324, 1221.06 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/BigPlatform"]
+texture = ExtResource( 6 )
+
+[node name="BigPlatformCollision" type="CollisionPolygon2D" parent="Platforms/BigPlatform"]
+visible = false
+polygon = PoolVector2Array( 174.665, -46.9604, -174.921, -46.447, -184.161, -43.3669, -187.755, -38.7469, -188.781, -33.6135, -189.808, -24.8867, -189.295, -13.0798, -160.547, 46.4679, 153.618, 35.6877, 161.318, 33.121, 188.525, -15.1331, 190.065, -32.5868, 184.418, -41.8269 )
+one_way_collision = true
+
+[node name="BigPlatform2" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 1073.85, 1390.53 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/BigPlatform2"]
+texture = ExtResource( 6 )
+
+[node name="BigPlatformCollision" type="CollisionPolygon2D" parent="Platforms/BigPlatform2"]
+polygon = PoolVector2Array( 174.665, -46.9604, -174.921, -46.447, -184.161, -43.3669, -187.755, -38.7469, -188.781, -33.6135, -189.808, -24.8867, -189.295, -13.0798, -160.547, 46.4679, 153.618, 35.6877, 161.318, 33.121, 188.525, -15.1331, 190.065, -32.5868, 184.418, -41.8269 )
+one_way_collision = true
+
+[node name="BigPlatform3" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 798.951, 1665.67 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/BigPlatform3"]
+texture = ExtResource( 6 )
+
+[node name="BigPlatformCollision" type="CollisionPolygon2D" parent="Platforms/BigPlatform3"]
+visible = false
+polygon = PoolVector2Array( 174.665, -46.9604, -174.921, -46.447, -184.161, -43.3669, -187.755, -38.7469, -188.781, -33.6135, -189.808, -24.8867, -189.295, -13.0798, -160.547, 46.4679, 153.618, 35.6877, 161.318, 33.121, 188.525, -15.1331, 190.065, -32.5868, 184.418, -41.8269 )
+one_way_collision = true
+
+[node name="BigPlatform4" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 388.775, 571.87 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/BigPlatform4"]
+texture = ExtResource( 6 )
+
+[node name="BigPlatformCollision" type="CollisionPolygon2D" parent="Platforms/BigPlatform4"]
+visible = false
+polygon = PoolVector2Array( 174.665, -46.9604, -174.921, -46.447, -184.161, -43.3669, -187.755, -38.7469, -188.781, -33.6135, -189.808, -24.8867, -189.295, -13.0798, -160.547, 46.4679, 153.618, 35.6877, 161.318, 33.121, 188.525, -15.1331, 190.065, -32.5868, 184.418, -41.8269 )
+one_way_collision = true
+
+[node name="BigPlatform5" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 94.0791, 112.693 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/BigPlatform5"]
+texture = ExtResource( 6 )
+
+[node name="BigPlatformCollision" type="CollisionPolygon2D" parent="Platforms/BigPlatform5"]
+visible = false
+polygon = PoolVector2Array( 174.665, -46.9604, -174.921, -46.447, -184.161, -43.3669, -187.755, -38.7469, -188.781, -33.6135, -189.808, -24.8867, -189.295, -13.0798, -160.547, 46.4679, 153.618, 35.6877, 161.318, 33.121, 188.525, -15.1331, 190.065, -32.5868, 184.418, -41.8269 )
+one_way_collision = true
+
+[node name="BigPlatform6" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 868.859, -1002.99 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/BigPlatform6"]
+texture = ExtResource( 6 )
+
+[node name="BigPlatformCollision" type="CollisionPolygon2D" parent="Platforms/BigPlatform6"]
+visible = false
+polygon = PoolVector2Array( 174.665, -46.9604, -174.921, -46.447, -184.161, -43.3669, -187.755, -38.7469, -188.781, -33.6135, -189.808, -24.8867, -189.295, -13.0798, -160.547, 46.4679, 153.618, 35.6877, 161.318, 33.121, 188.525, -15.1331, 190.065, -32.5868, 184.418, -41.8269 )
+one_way_collision = true
+
+[node name="SmallPlatform" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 1099.96, 759.023 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/SmallPlatform"]
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SmallPlatform"]
+visible = false
+polygon = PoolVector2Array( -86.7419, -50.3311, 89.728, -50.3311, 99.1817, -38.9866, 100.442, -26.3816, 96.0305, -9.99512, 73.9717, 50.5088, -79.1789, 40.4248, -98.7166, -16.2976, -98.7166, -37.7261 )
+one_way_collision = true
+
+[node name="SmallPlatform2" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 73.0149, 927.593 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/SmallPlatform2"]
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SmallPlatform2"]
+visible = false
+polygon = PoolVector2Array( -86.7419, -50.3311, 89.728, -50.3311, 99.1817, -38.9866, 100.442, -26.3816, 96.0305, -9.99512, 73.9717, 50.5088, -79.1789, 40.4248, -98.7166, -16.2976, -98.7166, -37.7261 )
+one_way_collision = true
+
+[node name="SmallPlatform3" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 112.079, 1930.24 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/SmallPlatform3"]
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SmallPlatform3"]
+visible = false
+polygon = PoolVector2Array( -86.7419, -50.3311, 89.728, -50.3311, 99.1817, -38.9866, 100.442, -26.3816, 96.0305, -9.99512, 73.9717, 50.5088, -79.1789, 40.4248, -98.7166, -16.2976, -98.7166, -37.7261 )
+one_way_collision = true
+
+[node name="SmallPlatform4" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 1004.05, 393.713 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/SmallPlatform4"]
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SmallPlatform4"]
+visible = false
+polygon = PoolVector2Array( -86.7419, -50.3311, 89.728, -50.3311, 99.1817, -38.9866, 100.442, -26.3816, 96.0305, -9.99512, 73.9717, 50.5088, -79.1789, 40.4248, -98.7166, -16.2976, -98.7166, -37.7261 )
+one_way_collision = true
+
+[node name="SmallMovingPlatform" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 58.8189, -582.509 )
+script = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/SmallMovingPlatform"]
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SmallMovingPlatform"]
+visible = false
+polygon = PoolVector2Array( -86.7419, -50.3311, 89.728, -50.3311, 99.1817, -38.9866, 100.442, -26.3816, 96.0305, -9.99512, 73.9717, 50.5088, -79.1789, 40.4248, -98.7166, -16.2976, -98.7166, -37.7261 )
+one_way_collision = true
+
+[node name="SmallPlatform6" type="StaticBody2D" parent="Platforms"]
+editor/display_folded = true
+position = Vector2( 818.103, -334.58 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Platforms/SmallPlatform6"]
+texture = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SmallPlatform6"]
+visible = false
+polygon = PoolVector2Array( -86.7419, -50.3311, 89.728, -50.3311, 99.1817, -38.9866, 100.442, -26.3816, 96.0305, -9.99512, 73.9717, 50.5088, -79.1789, 40.4248, -98.7166, -16.2976, -98.7166, -37.7261 )
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="Platforms"]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/ColorRect"]
+"anims/Nueva animación" = SubResource( 2 )
